@@ -1,4 +1,6 @@
 {
+    "name":"slim4",
+    "description":"Simple slim app",  
     "require": {
         "slim/slim": "^4.0",
         "slim/psr7": "^0.6.0",
