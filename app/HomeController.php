@@ -8,9 +8,6 @@ class HomeController
 {
     protected $view;
 
-    public function __construct(\Slim\Views\Twig $view) {
-        $this->view = $view;
-    }
     public function home(Request $request, Response $response){
         $name = "Den";
         return $this->view->render($response, 'index.html', [
