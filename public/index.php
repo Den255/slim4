@@ -9,7 +9,6 @@ use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
 
 require __DIR__ . '/../vendor/autoload.php';
-//require __DIR__ . '/../vendor/autoload.php';
 
 $container = new \DI\Container();
 
