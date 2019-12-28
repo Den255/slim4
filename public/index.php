@@ -15,8 +15,14 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 require __DIR__ . '/../dependecies.php';
+//$app->add(new AuthMiddleware());
 
 $app->get('/', \HomeController::class . ':home');
+$app->get('/auth', \AuthController::class . ':show');
+/*
+$app->group('/admin', function (RouteCollectorProxy $group) {
+    $group->get('/dashboard', \AdminController::class . ':show')
+})->add(new AuthMiddleware());*/
 
 $app->addErrorMiddleware(true, true, true);
 $app->run();

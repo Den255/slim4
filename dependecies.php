@@ -1,5 +1,5 @@
 <?php
-namespace Controllers;
+namespace App\Controllers;
 use Illuminate\Database\Capsule\Manager as Illuminate;
 use Psr\Container\ContainerInterface;
 use Slim\views\Twig;
@@ -12,7 +12,9 @@ $container->set('settings', function(ContainerInterface $c){
 
 $container->set('view', function(ContainerInterface $c){
     $settings = $c->get('settings');
-    return new \Slim\Views\Twig($settings['templates']);
+    return new \Slim\Views\Twig($settings['templates'], [
+		'cache' => false,
+	]);
 });
 
 $container->set('db', function(ContainerInterface $c){
@@ -29,7 +31,7 @@ foreach(glob('../app/Controllers/*.php') as $filename){
     $container->set($classname, function (ContainerInterface $c) use($classname) {
         $view = $c->get('view');
         $db = $c->get('db'); 
-        $classname = 'Controllers\\'.$classname;
+        $classname = 'App\\Controllers\\'.$classname;
         return new $classname($view,$db);
     });
 }

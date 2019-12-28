@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Slim4</title>
+    <link rel="shortcut icon" href="/assets/images/favicon.png"/>
+	<link rel="stylesheet" href="/assets/css/app.css">
+
+</head>
+<body>
+	<div class="container">
+		{% include 'index.twig' %}
+		{% block content %}
+		    <div>Hello</div>
+		{% endblock %}
+	</div>
+</body>
+</html>

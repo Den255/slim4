@@ -44,10 +44,6 @@ class ComposerStaticInitee378309199da352dc0af2200d9bf201
             'PhpParser\\' => 10,
             'PhpDocReader\\' => 13,
         ),
-        'M' => 
-        array (
-            'Models\\' => 7,
-        ),
         'I' => 
         array (
             'Invoker\\' => 8,
@@ -68,8 +64,11 @@ class ComposerStaticInitee378309199da352dc0af2200d9bf201
         ),
         'C' => 
         array (
-            'Controllers\\' => 12,
             'Carbon\\' => 7,
+        ),
+        'A' => 
+        array (
+            'App\\' => 4,
         ),
     );
 
@@ -148,10 +147,6 @@ class ComposerStaticInitee378309199da352dc0af2200d9bf201
         array (
             0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
         ),
-        'Models\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/models',
-        ),
         'Invoker\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-di/invoker/src',
@@ -188,13 +183,13 @@ class ComposerStaticInitee378309199da352dc0af2200d9bf201
         array (
             0 => __DIR__ . '/..' . '/php-di/php-di/src',
         ),
-        'Controllers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/controllers',
-        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
@@ -209,6 +204,7 @@ class ComposerStaticInitee378309199da352dc0af2200d9bf201
     );
 
     public static $classMap = array (
+        'App\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Controllers/HomeController.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonImmutable.php',
         'Carbon\\CarbonInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterface.php',
