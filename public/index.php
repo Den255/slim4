@@ -17,12 +17,18 @@ $app = AppFactory::create();
 require __DIR__ . '/../dependecies.php';
 //$app->add(new AuthMiddleware());
 
-$app->get('/', \HomeController::class . ':home');
-$app->get('/auth', \AuthController::class . ':show');
+$app->get('/', \IndexController::class . ':main');
+$app->get('/login', \AuthController::class . ':show');
+$app->post('/login', \AuthController::class . ':login');
+//$app->post('/login', \AuthController::class . ':register');
+
+$app->get('/logout', \AuthController::class . ':logout');
+$app->get('/home', \HomeController::class . ':home');
 /*
-$app->group('/admin', function (RouteCollectorProxy $group) {
+$app->group('/home', function (RouteCollectorProxy $group) {
     $group->get('/dashboard', \AdminController::class . ':show')
-})->add(new AuthMiddleware());*/
+})->add(new AuthMiddleware());
+*/
 
 $app->addErrorMiddleware(true, true, true);
 $app->run();

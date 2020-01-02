@@ -3,16 +3,16 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Illuminate\Database\Capsule\Manager as Illuminate;
 use Slim\views\Twig as Twig;
+use App\Auth as Auth;
 
 class Controller
 {
     protected $view,$db;
 
-    public function __construct(Twig $view,Illuminate $db) {
+    public function __construct(Twig $view) {
         $this->view = $view;
-        $this->db = $db;
+        $this->auth = new Auth();
     }
 }
 ?>

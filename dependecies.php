@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers;
+namespace App;
 use Illuminate\Database\Capsule\Manager as Illuminate;
 use Psr\Container\ContainerInterface;
 use Slim\views\Twig;
@@ -20,19 +20,23 @@ $container->set('view', function(ContainerInterface $c){
 $container->set('db', function(ContainerInterface $c){
     $settings = $c->get('settings');
     $capsule = new \Illuminate\Database\Capsule\Manager;
-    $capsule->addConnection($settings['db']);
+    $capsule->addConnection($settings['db'],"default");
     $capsule->setAsGlobal();
     $capsule->bootEloquent();
     return $capsule;
 });
 
-foreach(glob('../app/Controllers/*.php') as $filename){
+$controllers = glob('../app/Controllers/*.php');
+$models = glob('../app/Migrations/*.php');
+
+foreach($controllers as $filename){
     $classname = basename($filename,'.php');
     $container->set($classname, function (ContainerInterface $c) use($classname) {
         $view = $c->get('view');
-        $db = $c->get('db'); 
         $classname = 'App\\Controllers\\'.$classname;
-        return new $classname($view,$db);
+        return new $classname($view);
     });
 }
+$db = $container->get('db');
+return new Database($db)
 ?>
