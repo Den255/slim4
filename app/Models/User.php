@@ -1,9 +1,10 @@
 <?php
 namespace App\Models;
+
+use \Illuminate\Database\Schema\Blueprint;
 use \Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Schema\Builder;
-use \Illuminate\Database\Schema\Blueprint;
-use App\Database as Database;
+use App\Database;
 
 class User extends Model
 {

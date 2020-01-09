@@ -10,9 +10,9 @@ class Controller
 {
     protected $view,$db;
 
-    public function __construct(Twig $view) {
+    public function __construct(Twig $view,Auth $auth) {
         $this->view = $view;
-        $this->auth = new Auth();
+        $this->auth = $auth;
     }
 }
 ?>
