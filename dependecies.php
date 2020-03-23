@@ -7,20 +7,23 @@ use Slim\views\Twig;
 session_start();
 
 $container = $app->getContainer();
+//Set settings
 $container->set('settings', function(ContainerInterface $c){
-    $settings = require __DIR__ . './settings.php';
+    $settings = require __DIR__ . '/settings.php';
     return $settings;
 });
-
+//Set view
 $container->set('view', function(ContainerInterface $c){
     $settings = $c->get('settings');
     return new \Slim\Views\Twig($settings['templates'], [
 		'cache' => false,
 	]);
 });
+//Set auth
 $container->set('auth', function(ContainerInterface $c){
     return new Auth();
 });
+//Set db
 $container->set('db', function(ContainerInterface $c){
     $settings = $c->get('settings');
     $capsule = new \Illuminate\Database\Capsule\Manager;
@@ -29,21 +32,26 @@ $container->set('db', function(ContainerInterface $c){
     $capsule->bootEloquent();
     return $capsule;
 });
+//Set middleware
+$container->set('Middleware', function(ContainerInterface $c) {
+    return new Middleware($c);
+});
+//Set env
+$container->set('env', function(ContainerInterface $c) {
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    return $dotenv;
+});
 
 $controllers = glob('../app/Controllers/*.php');
 
 foreach($controllers as $filename){
     $classname = basename($filename,'.php');
     $container->set($classname, function (ContainerInterface $c) use($classname) {
-        $view = $c->get('view');
-        $auth = $c->get('auth');
         $classname = 'App\\Controllers\\'.$classname;
-        return new $classname($view, $auth);
+        return new $classname($c);
     });
 }
-$container->set('Middleware', function(ContainerInterface $c) {
-    return new Middleware($c);
-});
+
 $db = $container->get('db');
  new Database($db);
 

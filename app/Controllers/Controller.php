@@ -3,16 +3,16 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\views\Twig as Twig;
-use App\Auth as Auth;
+use Psr\Container\ContainerInterface;
 
 class Controller
 {
-    protected $view,$db;
+    //protected $c;
 
-    public function __construct(Twig $view,Auth $auth) {
-        $this->view = $view;
-        $this->auth = $auth;
+    public function __construct(ContainerInterface $c) {
+        $this->view = $c->get('view');
+        $this->auth = $c->get('auth');
+        $this->env = $c->get('env');
     }
 }
 ?>

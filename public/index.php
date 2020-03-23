@@ -18,8 +18,11 @@ $app = AppFactory::create();
 
 require __DIR__ . '/../dependecies.php';
 //$app->add(new AuthMiddleware());
-
 $app->get('/', \IndexController::class . ':main');
+
+$app->get('/setup', \SetupController::class . ':main');
+$app->post('/setup', \SetupController::class . ':setup');
+
 $app->get('/login', \AuthController::class . ':show');
 $app->post('/login', \AuthController::class . ':login');
 
