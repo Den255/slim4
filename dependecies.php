@@ -23,6 +23,11 @@ $container->set('view', function(ContainerInterface $c){
 $container->set('auth', function(ContainerInterface $c){
     return new Auth();
 });
+//Set env
+$container->set('env', function(ContainerInterface $c) {
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    return $dotenv;
+});
 //Set db
 $container->set('db', function(ContainerInterface $c){
     $settings = $c->get('settings');
@@ -35,11 +40,6 @@ $container->set('db', function(ContainerInterface $c){
 //Set middleware
 $container->set('Middleware', function(ContainerInterface $c) {
     return new Middleware($c);
-});
-//Set env
-$container->set('env', function(ContainerInterface $c) {
-    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
-    return $dotenv;
 });
 
 $controllers = glob('../app/Controllers/*.php');
