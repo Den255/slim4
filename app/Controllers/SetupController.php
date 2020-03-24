@@ -4,7 +4,8 @@ namespace App\Controllers;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Controller;
-use App\Migrations\User;
+use App\Models\User;
+use App\Migrations\UserTable;
 
 use \Dotenv\Store\File\Paths as Envpath;
 
@@ -21,6 +22,17 @@ class SetupController extends Controller
 
         if($this->check()){
             return $this->view->render($response, 'setup.twig', [
+                'result' => $result,
+            ]);
+        }else{
+            return $response->withHeader('Location', '/')->withStatus(302);
+        }
+        
+    }
+    function show(Request $request, Response $response){
+
+        if($this->check()){
+            return $this->view->render($response, 'add_user.twig', [
                 'result' => $result,
             ]);
         }else{
@@ -47,7 +59,7 @@ class SetupController extends Controller
             foreach($content as &$line){
                 $chg_line = false;
                 if(!(stristr($line, "SETUP_MODE") === FALSE)){
-                    $line = "SETUP_MODE = false";
+                    $line = "SETUP_MODE = true";
                     $chg_line = true;
                 }
                 if(!(stristr($line, "DB_HOST") === FALSE)){
@@ -71,20 +83,23 @@ class SetupController extends Controller
                 }
             }
             // Перезаписываем файл 
-            file_put_contents($path,$content); 
-            $user = new User();
-            $user->up();
-            /*
-            $body = $request->getParsedBody();
-            User::create([
-                'login' => $body["name"],
-                'password' => password_hash($body["password"], PASSWORD_DEFAULT),
-            ]);
-            */
-            return $response->withHeader('Location', '/login')->withStatus(302);
+            file_put_contents($path,$content);
+            return $response->withHeader('Location', '/adduser')->withStatus(302);
         }else{
 
         }
+    }
+    function add_user(Request $request, Response $response){
+        $body = $request->getParsedBody();
+        //Add table
+        $user_t = new UserTable();
+        $user_t->up();
+        //Add user
+        User::create([
+            'login' => $body["name"],
+            'password' => password_hash($body["password"], PASSWORD_DEFAULT),
+        ]);
+        return $response->withHeader('Location', '/login')->withStatus(302);
     }
 }
 ?>

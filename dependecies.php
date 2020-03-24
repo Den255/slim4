@@ -7,6 +7,13 @@ use Slim\views\Twig;
 session_start();
 
 $container = $app->getContainer();
+//Set env
+$container->set('env', function(ContainerInterface $c) {
+    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    return $dotenv;
+});
+$env = $container->get('env');
+$env->load();
 //Set settings
 $container->set('settings', function(ContainerInterface $c){
     $settings = require __DIR__ . '/settings.php';
@@ -22,11 +29,6 @@ $container->set('view', function(ContainerInterface $c){
 //Set auth
 $container->set('auth', function(ContainerInterface $c){
     return new Auth();
-});
-//Set env
-$container->set('env', function(ContainerInterface $c) {
-    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
-    return $dotenv;
 });
 //Set db
 $container->set('db', function(ContainerInterface $c){

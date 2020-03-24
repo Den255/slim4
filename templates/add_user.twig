@@ -1,0 +1,28 @@
+{% extends "app.twig" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+        <div id="content">
+                <h1 id="content-title">Auth page: {{result}}</h1>
+                <div id="line"></div>
+            <div class="col-sm">
+                <form method="post" action="/adduser" >
+                    <div class="form-group">
+                        <label for="log">Admin login</label>
+                        <input name="name" type="text" id="log" class="form-control" placeholder="Enter login">
+                        <small id="emailHelp" class="form-text text-muted">Please enter your login.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="pass">Admin password</label>
+                        <input name="password" type="password" class="form-control" id="pass" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add user</button>
+                </form>
+            </div>
+        <div id="content-footer"></div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

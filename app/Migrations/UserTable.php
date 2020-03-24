@@ -5,7 +5,7 @@ use \Illuminate\Database\Schema\Builder;
 use \Illuminate\Database\Schema\Blueprint;
 use App\Database as Database;
 
-class User
+class UserTable
 {
     private $name = 'users';
     public function up()
