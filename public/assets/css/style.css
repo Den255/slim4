@@ -45,6 +45,8 @@ h1{
 #content{  
     background: white;
     box-shadow: 5px 5px 20px 0px grey;
+    margin-top: 60px;
+    min-height: 1000px;
 }
 #content-title{
     padding: 20px;

@@ -22,8 +22,10 @@ $app->get('/', \IndexController::class . ':main');
 
 $app->get('/setup', \SetupController::class . ':main');
 $app->post('/setup', \SetupController::class . ':setup');
-$app->get('/adduser', \SetupController::class . ':show');
-$app->post('/adduser', \SetupController::class . ':add_user');
+$app->get('/setup-off', \SetupController::class . ':disable_setup');
+
+$app->get('/add-user', \SetupController::class . ':show');
+$app->post('/add-user', \SetupController::class . ':add_user');
 
 $app->get('/login', \AuthController::class . ':show');
 $app->post('/login', \AuthController::class . ':login');
