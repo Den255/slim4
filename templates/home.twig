@@ -1,29 +1,31 @@
 {% extends "app.twig" %}
 {% block content %}
 <div class="container">
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Navbar w/ text</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/home/posts">Posts</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/home/setup-off">Setup mode disable</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/home/logout">Logout</a>
-      </li>
-    </ul>
-    <span class="navbar-text"></span>
+  <div class="row" style="height: 60px;">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="/">Navbar w/ text</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home/posts">Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home/setup-off">Setup mode disable</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home/logout">Logout</a>
+          </li>
+        </ul>
+        <span class="navbar-text"></span>
+      </div>
+    </nav>
   </div>
-  </nav>
   <div class="row">
     <div class="col-sm">
         <div id="content">
@@ -36,6 +38,8 @@
                   <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
                   <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
                   <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+                  <button type="button" id="addcat" class="btn btn-outline-success">Add cat +</button>
+                  <button type="button" id="success" class="btn btn-outline-success">Add cat +</button>
                 </div>
               </div>
               <div class="col-9">
