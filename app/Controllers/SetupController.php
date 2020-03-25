@@ -35,7 +35,6 @@ class SetupController extends Controller
     }
     function setup(Request $request, Response $response){
         $body = $request->getParsedBody();
-        print_r("<pre>");
         if($this->check()){
             $path = $this->getenvpath();
             $content = file_get_contents($path); 
@@ -76,6 +75,7 @@ class SetupController extends Controller
         return $response;
     }
     function add_user(Request $request, Response $response){
+        if($this->check()){
         $body = $request->getParsedBody();
         //Add table users
         $users = new Users();
@@ -85,6 +85,9 @@ class SetupController extends Controller
             'login' => $body["name"],
             'password' => password_hash($body["password"], PASSWORD_DEFAULT),
         ]);
+        }else{
+            //Error message
+        }
         return $response->withHeader('Location', '/login')->withStatus(302);
     }
 

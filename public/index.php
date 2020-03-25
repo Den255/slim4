@@ -22,7 +22,6 @@ $app->get('/', \IndexController::class . ':main');
 
 $app->get('/setup', \SetupController::class . ':main');
 $app->post('/setup', \SetupController::class . ':setup');
-$app->get('/setup-off', \SetupController::class . ':disable_setup');
 
 $app->get('/add-user', \SetupController::class . ':show');
 $app->post('/add-user', \SetupController::class . ':add_user');
@@ -30,7 +29,6 @@ $app->post('/add-user', \SetupController::class . ':add_user');
 $app->get('/login', \AuthController::class . ':show');
 $app->post('/login', \AuthController::class . ':login');
 
-$app->get('/logout', \AuthController::class . ':logout');
 //$authmw = new AuthMiddleware();
 //$app->get('/home', \HomeController::class . ':home')->add($authmw);
 /*
@@ -39,7 +37,9 @@ $app->group('/home', function (RouteCollectorProxy $group) {
 });*/
 $app->group('/', function (RouteCollectorProxy $group) {
     $group->get('home', \HomeController::class . ':home');
-    $group->get('home/cats', \HomeController::class . ':showcats');
+    $group->get('home/posts', \HomeController::class . ':showposts');
+    $group->get('home/setup-off', \SetupController::class . ':disable_setup');
+    $group->get('home/logout', \AuthController::class . ':logout');
 })->add(new AuthMiddleware($container));
 
 $app->addErrorMiddleware(true, true, true);
