@@ -16,7 +16,7 @@
             <a class="nav-link" href="/home/posts">Posts</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/home/setup-off">Setup mode disable</a>
+            <a class="nav-link" onclick="get_request('/home/setup-off')">Setup mode disable</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/home/db-status">Db status</a>
@@ -51,9 +51,9 @@
                     <td>{{ key }}</td>
                     <td>{{ value["name"] }}</td>
                     {% if not value["exist"]%}
-                      <td><button type="button" class="btn btn-info">Create table for {{ key }}</button></td>
+                      <td><button type="button" id = "btn-{{value["name"]}}" class="btn btn-info" onclick="get_request('/home/create-table/{{value["name"]}}')">Create table for {{ key }}</button></td>
                     {%else%}
-                      <td><button type="button" class="btn btn-info" disabled>Already exists! {{ key }}</button></td>
+                      <td><button type="button" class="btn btn-info" disabled>Table {{ value["name" ]}} exists! </button></td>
                     {%endif%}
                   </tr>
                 {% endfor %}

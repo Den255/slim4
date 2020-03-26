@@ -42,6 +42,7 @@ $app->group('/', function (RouteCollectorProxy $group) {
     $group->get('home/logout', \AuthController::class . ':logout');
 
     $group->get('home/db-status', \SetupController::class . ':show_db');
+    $group->get('home/create-table/{name}', \SetupController::class . ':create_table');
 
     $group->get('home/addcat', \HomeController::class . ':add_cat');
 })->add(new AuthMiddleware($container));

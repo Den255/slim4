@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Routing\RouteContext;
 use App\Controllers\Controller;
 use App\Models\User;
 use App\Migrations\Users;
@@ -72,15 +73,16 @@ class SetupController extends Controller
     }
     function disable_setup(Request $request, Response $response){
         $this->putenv("SETUP_MODE","false");
-        print_r("OK");
-        return $response;
+        $payload = json_encode(['status' => 'OK'], JSON_PRETTY_PRINT);
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
     }
     function add_user(Request $request, Response $response){
         if($this->check()){
         $body = $request->getParsedBody();
         //Add table users
         $users = new Users();
-        $users->up();
+        $users::up();
         //Add user
         User::create([
             'login' => $body["name"],
@@ -104,20 +106,38 @@ class SetupController extends Controller
                 "exist"=>$cats::exist()
             ],
         );
-        //print_r("<div style='height:60px;'></div><div><pre>");
-        //$path = $this->get_migrations_path();
-        //$result = glob($path.'/*.php');
-        //foreach($result as &$class_name){
-        //    $class_name = basename($class_name,'.php');
-        //}
-        //var_dump($result);
-        //print_r("</div>");
         return $this->view->render($response, 'db-page.twig', [
             'result' => $result,
         ]);
     }
-    function create_table(){
-        
+    function create_table(Request $request, Response $response, $args){
+        //var_dump($args);
+        $status = "OK";
+        $msg = "Таблица ".$args["name"]." создана!";
+        $users = new Users();
+        $cats = new Categories();
+        if($args["name"] == $users::$name){
+            if(!$users::exist())
+                $users::up();
+            else{
+                $status = "fail";
+                $msg = "Таблица уже существует";
+            }
+        }elseif($args["name"] == $cats::$name){
+            if(!$cats::exist())
+                $cats::up();
+            else{
+                $status = "fail";
+                $msg = "Таблица уже существует";
+            }
+                
+        }else{
+            $status = "fail";
+            $msg = "Миграции нет!";
+        }
+        $payload = json_encode(['status' => $status,'table-name'=>$args["name"],'msg'=>$msg], JSON_PRETTY_PRINT);
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
     }
     #########################
     #### Other functions ####
