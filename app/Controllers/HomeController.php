@@ -13,6 +13,10 @@ class HomeController extends Controller
             'result' => $result,
         ]);
     }
+    public function add_cat(Request $request, Response $response){
+        
+        return $response;
+    }
     public function showcats(Request $request, Response $response){  
         return $this->view->render($response, 'home.twig', [
             'result' => $result,

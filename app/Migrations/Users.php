@@ -7,23 +7,23 @@ use App\Database as Database;
 
 class Users
 {
-    private $name = 'users';
+    static $name = 'users';
     public function up()
     {
-        if(Database::$db->schema()->hasTable($name))
-            $message = "Table ".$name." already exsists!";
-        else{
-            Database::$db->schema()->create($name, function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('login')->unique();
-                $table->string('password');
-                $table->timestamps();
-            });
-            $message = "OK!";
-        }
-        return $message;
+        Database::$db->schema()->create(self::$name, function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('login')->unique();
+            $table->string('password');
+            $table->timestamps();
+        });
     }
-
+    public function exist(){
+        if(Database::$db->schema()->hasTable(self::$name))
+            return true;
+        else
+            return false;
+    
+    }
     /**
      * Reverse the migrations.
      *
@@ -31,7 +31,7 @@ class Users
      */
     public function down()
     {
-        Schema::drop($name);
+        Schema::drop(self::$name);
     }
 }
 ?>

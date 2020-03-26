@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Controllers\Controller;
 use App\Models\User;
 use App\Migrations\Users;
+use App\Migrations\Categories;
 
 use \Dotenv\Store\File\Paths as Envpath;
 
@@ -90,7 +91,34 @@ class SetupController extends Controller
         }
         return $response->withHeader('Location', '/login')->withStatus(302);
     }
-
+    function show_db(Request $request, Response $response){
+        $users = new Users();
+        $cats = new Categories();
+        $result = array(
+            "Users"=>[
+                "name"=>$users::$name,
+                "exist"=>$users::exist()
+            ],
+            "Categories"=>[
+                "name"=>$cats::$name,
+                "exist"=>$cats::exist()
+            ],
+        );
+        //print_r("<div style='height:60px;'></div><div><pre>");
+        //$path = $this->get_migrations_path();
+        //$result = glob($path.'/*.php');
+        //foreach($result as &$class_name){
+        //    $class_name = basename($class_name,'.php');
+        //}
+        //var_dump($result);
+        //print_r("</div>");
+        return $this->view->render($response, 'db-page.twig', [
+            'result' => $result,
+        ]);
+    }
+    function create_table(){
+        
+    }
     #########################
     #### Other functions ####
     #########################
@@ -108,6 +136,16 @@ class SetupController extends Controller
         $pos=strripos($path, "/");
         $path=substr($path, 0, $pos);
         $path = $path."/.env";
+        return $path;
+    }
+    function get_migrations_path(){
+        $path = $_SERVER["SCRIPT_FILENAME"];
+        $path = $_SERVER["SCRIPT_FILENAME"];
+        $pos=strripos($path, "/");
+        $path=substr($path, 0, $pos);
+        $pos=strripos($path, "/");
+        $path=substr($path, 0, $pos);
+        $path=$path."/app/Migrations";
         return $path;
     }
     function putenv($key, $value){

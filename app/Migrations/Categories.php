@@ -7,10 +7,10 @@ use App\Database as Database;
 
 class Categories
 {
-    private $name = 'cats';
+    static $name = 'cats';
     public function up()
     {
-        Database::$db->schema()->create($name, function (Blueprint $table) {
+        Database::$db->schema()->create(self::$name, function (Blueprint $table) {
             $table->increments('id');
             $table->string('slug')->unique();
             $table->string('name');
@@ -18,7 +18,12 @@ class Categories
         });
         return $message;
     }
-
+    public function exist(){
+        if(Database::$db->schema()->hasTable(self::$name))
+            return true;
+        else
+            return false;
+    }
     /**
      * Reverse the migrations.
      *
@@ -26,7 +31,7 @@ class Categories
      */
     public function down()
     {
-        Schema::drop($name);
+        Schema::drop(self::$name);
     }
 }
 ?>

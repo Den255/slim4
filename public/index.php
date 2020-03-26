@@ -40,6 +40,10 @@ $app->group('/', function (RouteCollectorProxy $group) {
     $group->get('home/posts', \HomeController::class . ':showposts');
     $group->get('home/setup-off', \SetupController::class . ':disable_setup');
     $group->get('home/logout', \AuthController::class . ':logout');
+
+    $group->get('home/db-status', \SetupController::class . ':show_db');
+
+    $group->get('home/addcat', \HomeController::class . ':add_cat');
 })->add(new AuthMiddleware($container));
 
 $app->addErrorMiddleware(true, true, true);
