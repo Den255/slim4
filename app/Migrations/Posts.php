@@ -14,7 +14,7 @@ class Posts
             $table->increments('id');
             $table->unsignedBigInteger('cat_id');
             $table->string('slug')->unique();
-            $table->string('name');
+            $table->string('title');
             $table->binary('content');
             $table->timestamps();
         });

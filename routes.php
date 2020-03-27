@@ -15,12 +15,6 @@ $app->post('/add-user', \SetupController::class . ':add_user');
 $app->get('/login', \AuthController::class . ':show');
 $app->post('/login', \AuthController::class . ':login');
 
-//$authmw = new AuthMiddleware();
-//$app->get('/home', \HomeController::class . ':home')->add($authmw);
-/*
-$app->group('/home', function (RouteCollectorProxy $group) {
-    $group->get('/dashboard', \AdminController::class . ':show')
-});*/
 $app->group('/', function (RouteCollectorProxy $group) {
     $group->get('home', \HomeController::class . ':home');
     $group->get('home/posts', \HomeController::class . ':showposts');
@@ -31,5 +25,6 @@ $app->group('/', function (RouteCollectorProxy $group) {
     $group->get('home/create-table/{name}', \SetupController::class . ':create_table');
 
     $group->post('home/add-cat', \HomeController::class . ':add_cat');
+    $group->post('home/add-post', \HomeController::class . ':add_post');
 })->add(new AuthMiddleware($container));
 ?>

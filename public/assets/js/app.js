@@ -1,4 +1,4 @@
-function get_request(url,element){
+function get_request(url){
     $.ajax({
         url: url,
         type: 'Get',
@@ -19,8 +19,9 @@ function get_request(url,element){
         },
     });
 }
-function post_request(url,element){
-    var data =  $('#cat-form').serializeArray();
+function post_request(url,modal,form){
+    tinyMCE.triggerSave();
+    var data =  $('#'+form).serializeArray();
     console.log(data);
     $.ajax({
         url: url,
@@ -30,9 +31,13 @@ function post_request(url,element){
             if(data["status"]=="OK"){
                 $('#ok').removeClass('hide-alert');
                 $('#ok-text').html(data["msg"]);
-                $('#btn-'+data["table-name"]).attr("disabled",true);
-                $('#btn-'+data["table-name"]).html(data["msg"]);
-                $("#menu").append('<li class="nav-item"><a class="nav-link active" href="/home/cat/'+data["slug"]+'">'+data["name"]+'</a></li>');
+                if(modal == 'cat-modal'){
+                    $("#menu").append('<li class="nav-item"><a class="nav-link active" href="/home/cat/'+data["slug"]+'">'+data["name"]+'</a></li>');
+                }
+                if(modal == 'post-modal'){
+                    $("#table-posts").append('<tr><th scope="row">1</th><td></td><td></td><td><div class="btn-group btn-group-sm" role="group" aria-label="Basic example"><button type="button" class="btn btn-secondary" onclick="get_request("/")">Edit</button><button type="button" class="btn btn-secondary" onclick="get_request("/")">Delete</button></div></td></tr>');
+                    
+                }
             }else{
                 $('#fail').removeClass('hide-alert');
                 $('#fail-text').html(data["msg"]);
@@ -43,7 +48,7 @@ function post_request(url,element){
             $('#fail-text').html(data["msg"]);
         },
     });
-    $(element).modal('hide')
+    $('#'+modal).modal('hide')
 }
 
 

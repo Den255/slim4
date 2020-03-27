@@ -44,7 +44,7 @@
                       </li>
                     {%endfor%}
                   </ul>
-                  <button type="button" id="add-cat" class="btn btn-outline-success" data-toggle="modal" data-target="#myModal">Add cat +</button>
+                  <button type="button" id="add-cat" class="btn btn-outline-success" data-toggle="modal" data-target="#cat-modal">Add cat +</button>
                 </div>
               </div>
               <div class="col-9">
@@ -54,11 +54,10 @@
                     <th scope="col"><button type="button" class="btn btn-outline-success" disabled>ID</button></th>
                     <th scope="col"><button type="button" class="btn btn-outline-success" disabled>URL</button></th>
                     <th scope="col"><button type="button" class="btn btn-outline-success" disabled>Name</button></th>
-                    
-                    <th scope="col"><button type="button" id="add-post" class="btn btn-outline-success" data-toggle="modal" data-target="#postModal">Add post +</button></th>
+                    <th scope="col"><button type="button" id="add-post" class="btn btn-outline-success" data-toggle="modal" data-target="#post-modal">Add post +</button></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-posts">
                 {% for post in posts %}
                   <tr>
                     <th scope="row">1</th>
@@ -70,7 +69,6 @@
                         <button type="button" class="btn btn-secondary" onclick="get_request('/')">Delete</button>
                       </div>
                     </td>
-                    
                   </tr>
                 {% endfor %}
                 </tbody>
@@ -84,7 +82,7 @@
   </div>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="cat-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -107,13 +105,13 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="post_request('/home/add-cat','#myModal')">Create</button>
+        <button type="button" class="btn btn-primary" onclick="post_request('/home/add-cat','cat-modal','cat-form')">Create</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal bd-example-modal-xl fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal bd-example-modal-xl fade" id="post-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -123,7 +121,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="cat-form">
+        <form id="post-form">
           <div class="form-group">
             <label for="cat-name" class="col-form-label">Title:</label>
             <input name="title" type="text" class="form-control" id="cat-name">
@@ -134,8 +132,12 @@
               <input name="slug" type="text" class="form-control" id="slug">
             </div>
             <div class="form-group col-md-6">
-          <label for="cat" class="col-form-label">Category:</label>
-          <input name="cat-name" type="text" class="form-control" id="cat">
+              <label for="cat" class="col-form-label">Category:</label>
+                <select name="cat_id" class="form-control" id="cat">
+                    {% for cat in cats %}
+                        <option value="{{cat["id"]}}">{{cat["name"]}}</option>
+                    {%endfor%}
+                </select>
             </div>
           </div>
           <div class="form-group">
@@ -146,7 +148,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="post_request('/home/add-cat','#myModal')">Create</button>
+        <button type="button" class="btn btn-primary" onclick="post_request('/home/add-post','post-modal','post-form')">Create</button>
       </div>
     </div>
   </div>
