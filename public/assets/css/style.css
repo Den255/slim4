@@ -5,6 +5,9 @@ body{
 h1{
     margin: 0;
 }
+.container{
+    max-width: 2000px!important;
+}
 #header {
     display: block;
     height: 130px;

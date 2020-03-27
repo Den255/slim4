@@ -12,8 +12,16 @@ class HomeController extends Controller
     public function home(Request $request, Response $response){
         if(Category::exist())
             $cats = Category::all();
+        $posts = [
+            ["title" => 'Title',
+            "content" => 'Content'],[
+                "title" => 'Title',
+            "content" => 'Content'
+            ]
+        ];
         return $this->view->render($response, 'home.twig', [
             'cats' => $cats,
+            'posts' => $posts,
         ]);
     }
     public function add_cat(Request $request, Response $response){

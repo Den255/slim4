@@ -8,6 +8,7 @@ use App\Models\User;
 class IndexController extends Controller
 {
     public function main(Request $request, Response $response){
+        $result = "Hello!";
         return $this->view->render($response, 'index.twig', [
             'result' => $result,
         ]);

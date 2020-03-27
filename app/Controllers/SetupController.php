@@ -7,6 +7,7 @@ use Slim\Routing\RouteContext;
 use App\Controllers\Controller;
 use App\Models\User;
 use App\Migrations\Users;
+use App\Migrations\Posts;
 use App\Migrations\Categories;
 
 use \Dotenv\Store\File\Paths as Envpath;
@@ -79,15 +80,22 @@ class SetupController extends Controller
     }
     function add_user(Request $request, Response $response){
         if($this->check()){
-        $body = $request->getParsedBody();
-        //Add table users
-        $users = new Users();
-        $users::up();
-        //Add user
-        User::create([
-            'login' => $body["name"],
-            'password' => password_hash($body["password"], PASSWORD_DEFAULT),
-        ]);
+            $body = $request->getParsedBody();
+            //Add table users
+            $users = new Users();
+            if(!$users::exist()){
+                $users::up();
+            }
+            //Add user
+            $user = User::where('login',$body["name"])->first();
+            if($user == null){
+                User::create([
+                    'login' => $body["name"],
+                    'password' => password_hash($body["password"], PASSWORD_DEFAULT),
+                ]);
+            }else{
+                
+            }
         }else{
             //Error message
         }
@@ -96,6 +104,7 @@ class SetupController extends Controller
     function show_db(Request $request, Response $response){
         $users = new Users();
         $cats = new Categories();
+        $posts = new Posts();
         $result = array(
             "Users"=>[
                 "name"=>$users::$name,
@@ -104,6 +113,10 @@ class SetupController extends Controller
             "Categories"=>[
                 "name"=>$cats::$name,
                 "exist"=>$cats::exist()
+            ],
+            "Posts"=>[
+                "name"=>$posts::$name,
+                "exist"=>$posts::exist()
             ],
         );
         return $this->view->render($response, 'db-page.twig', [
@@ -116,6 +129,7 @@ class SetupController extends Controller
         $msg = "Таблица ".$args["name"]." создана!";
         $users = new Users();
         $cats = new Categories();
+        $posts = new Posts();
         if($args["name"] == $users::$name){
             if(!$users::exist())
                 $users::up();
@@ -130,7 +144,13 @@ class SetupController extends Controller
                 $status = "fail";
                 $msg = "Таблица уже существует";
             }
-                
+        }elseif($args["name"] == $posts::$name){
+            if(!$posts::exist())
+                $posts::up();
+            else{
+                $status = "fail";
+                $msg = "Таблица уже существует";
+            }
         }else{
             $status = "fail";
             $msg = "Миграции нет!";
@@ -156,16 +176,6 @@ class SetupController extends Controller
         $pos=strripos($path, "/");
         $path=substr($path, 0, $pos);
         $path = $path."/.env";
-        return $path;
-    }
-    function get_migrations_path(){
-        $path = $_SERVER["SCRIPT_FILENAME"];
-        $path = $_SERVER["SCRIPT_FILENAME"];
-        $pos=strripos($path, "/");
-        $path=substr($path, 0, $pos);
-        $pos=strripos($path, "/");
-        $path=substr($path, 0, $pos);
-        $path=$path."/app/Migrations";
         return $path;
     }
     function putenv($key, $value){

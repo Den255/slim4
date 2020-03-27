@@ -20,13 +20,12 @@ function get_request(url,element){
     });
 }
 function post_request(url,element){
+    var data =  $('#cat-form').serializeArray();
+    console.log(data);
     $.ajax({
         url: url,
         type: 'post',
-        data: {
-            name : $("#cat-name").val(),
-            slug : $("#slug").val(),
-        },
+        data: data,
         success: function (data, textStatus, request) {
             if(data["status"]=="OK"){
                 $('#ok').removeClass('hide-alert');
@@ -53,4 +52,14 @@ $('#close-fail').on('click', function(e){
 });
 $('#close-ok').on('click', function(e){
     $('#ok').addClass('hide-alert');
+});
+tinymce.init({
+    selector: '#postcontent',
+    height: 600,
+    plugins : 'link'
+});
+$(document).on('focusin', function(e) {
+    if ($(e.target).closest(".tox-dialog").length) {
+        e.stopImmediatePropagation();
+    }
 });
