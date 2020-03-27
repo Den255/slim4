@@ -1,15 +1,16 @@
 <?php
 namespace App;
-use Illuminate\Database\Capsule\Manager as Illuminate;
+use \Illuminate\Database\Capsule\Manager as Illuminate;
 use Psr\Container\ContainerInterface;
-use Slim\views\Twig;
+use \Slim\Views\Twig;
+use \Dotenv\Dotenv;
 
 session_start();
 
 $container = $app->getContainer();
 //Set env
 $container->set('env', function(ContainerInterface $c) {
-    $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv = Dotenv::createImmutable(__DIR__);
     return $dotenv;
 });
 $env = $container->get('env');
@@ -22,7 +23,7 @@ $container->set('settings', function(ContainerInterface $c){
 //Set view
 $container->set('view', function(ContainerInterface $c){
     $settings = $c->get('settings');
-    return new \Slim\Views\Twig($settings['templates'], [
+    return new Twig($settings['templates'], [
 		'cache' => false,
 	]);
 });
@@ -33,7 +34,7 @@ $container->set('auth', function(ContainerInterface $c){
 //Set db
 $container->set('db', function(ContainerInterface $c){
     $settings = $c->get('settings');
-    $capsule = new \Illuminate\Database\Capsule\Manager;
+    $capsule = new  Illuminate;
     $capsule->addConnection($settings['db'],"default");
     $capsule->setAsGlobal();
     $capsule->bootEloquent();
@@ -55,6 +56,6 @@ foreach($controllers as $filename){
 }
 
 $db = $container->get('db');
- new Database($db);
+new Database($db);
 
 ?>
