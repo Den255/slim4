@@ -66,7 +66,7 @@ class SetupController extends Controller
             }
             // Перезаписываем файл 
             file_put_contents($path,$content);
-            return $response->withHeader('Location', '/adduser')->withStatus(302);
+            return $response->withHeader('Location', '/add-user')->withStatus(302);
         }else{
 
         }
