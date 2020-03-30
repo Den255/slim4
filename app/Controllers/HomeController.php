@@ -17,7 +17,7 @@ class HomeController extends Controller
             'posts' => $posts,
         ]);
     }
-    public function show_posts(Request $request, Response $response,$args){
+    public function show_posts(Request $request, Response $response, $args){
         if($args == null){
             if(Category::exist())
                 $cats = Category::all();
@@ -32,7 +32,6 @@ class HomeController extends Controller
             $cat = Category::select('id','name')->where('slug',$args["cat-slug"])->first();
             if(Post::exist()){
                 $posts = Post::where('cat_id', $cat["id"])->get();
-                //var_dump($posts);
                 if($posts->isEmpty()){
                     $status = 'OK';
                     $msg = "Posts for ".$cat["name"]." not exists!";
@@ -69,7 +68,6 @@ class HomeController extends Controller
     public function add_post(Request $request, Response $response){
         $body = $request->getParsedBody();
         $status = "OK";
-        $post = Post::where('slug',$body["slug"])->first();
         if($post == null){
             Post::create([
                 'title' => $body["title"],
@@ -78,19 +76,22 @@ class HomeController extends Controller
                 'content' => $body["content"],
             ]);
             $msg = "Post added!";
+            $post = Post::select('id')->where('slug',$body["slug"])->first();
             $cat_slug = Category::select('slug')->where('id',$body["cat_id"])->first();
         }else{
             $msg = "Post with slug ".$body["slug"]." exists!";
             $status = "fail";
         }
-        $payload = json_encode(['status' => $status,'msg'=>$msg, 'title' => $body["title"], 'slug' => $body["slug"],'cat_slug'=>$cat_slug["slug"],], JSON_PRETTY_PRINT);
+        $payload = json_encode(['status' => $status,'msg'=>$msg, 'post_id'=>$post["id"],'title' => $body["title"], 'slug' => $body["slug"],'cat_slug'=>$cat_slug["slug"],], JSON_PRETTY_PRINT);
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
-    public function showcats(Request $request, Response $response){  
-        return $this->view->render($response, 'home.twig', [
-            'result' => $result,
-        ]);
+    function del_post(Request $request, Response $response, $args){
+        Post::find($args["id"])->delete();
+        $msg = "Post deleted!";
+        $payload = json_encode(['status' => 'OK','msg'=>$msg,], JSON_PRETTY_PRINT);
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
     }
 }
 ?>

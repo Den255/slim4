@@ -32,14 +32,14 @@
                 </thead>
                 <tbody id="table-posts">
                 {% for post in posts %}
-                  <tr>
+                  <tr id="post-{{ post["id"] }}">
                     <th scope="row">1</th>
                     <td>{{ post["slug"] }}</td>
                     <td>{{ post["title"] }}</td>
                     <td>
                       <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-secondary" onclick="get_request('/')">Edit</button>
-                        <button type="button" class="btn btn-secondary" onclick="get_request('/')">Delete</button>
+                        <button type="button" class="btn btn-secondary" onclick="get_request('/home/delete/post-{{ post["id"] }}','#post-{{ post["id"] }}')">Delete</button>
                       </div>
                     </td>
                   </tr>

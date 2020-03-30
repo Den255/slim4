@@ -1,4 +1,5 @@
-function get_request(url){
+function get_request(url,element){
+    //console.log("ssss");
     $.ajax({
         url: url,
         type: 'Get',
@@ -8,6 +9,9 @@ function get_request(url){
                 $('#ok-text').html(data["msg"]);
                 $('#btn-'+data["table-name"]).attr("disabled",true);
                 $('#btn-'+data["table-name"]).html(data["msg"]);
+                if(element!=null){
+                    $(element).remove();
+                }
             }else{
                 $('#fail').removeClass('hide-alert');
                 $('#fail-text').html(data["msg"]);
@@ -15,6 +19,9 @@ function get_request(url){
             if(data["posts"]!=null){
                 $('#table-posts').empty();
                 data["posts"].forEach(update_posts);
+            }
+            if(element!=null){
+                $(element).remove();
             }
         },
         error: function (response) {
@@ -40,7 +47,18 @@ function post_request(url,modal,form){
                     
                 }
                 if(modal == 'post-modal'){
-                    $("#table-posts").append('<tr><th scope="row">1</th><td>/'+data["cat_slug"]+'/'+data["slug"]+'</td><td>'+data["title"]+'</td><td><div class="btn-group btn-group-sm" role="group" aria-label="Basic example"><button type="button" class="btn btn-secondary" onclick="get_request("/")">Edit</button><button type="button" class="btn btn-secondary" onclick="get_request("/")">Delete</button></div></td></tr>');
+                    $("#table-posts").append(
+                        '<tr id="post-'+data["post_id"]+'">\
+                            <th scope="row">1</th>\
+                            <td>/'+data["cat_slug"]+'/'+data["slug"]+'</td>\
+                            <td>'+data["title"]+'</td>\
+                            <td>\
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">\
+                                    <button type="button" class="btn btn-secondary" onclick="get_request()">Edit</button>\
+                                    <button type="button" class="btn btn-secondary" onclick="get_request(\'/home/delete/post-'+data["post_id"]+'\',\'#post-'+data["post_id"]+'\')">Delete</button>\
+                                </div>\
+                            </td>\
+                        </tr>');
                 }
             }else{
                 $('#fail').removeClass('hide-alert');
@@ -56,7 +74,18 @@ function post_request(url,modal,form){
 }
 
 function update_posts(data,index){
-    $("#table-posts").append('<tr><th scope="row">1</th><td>/'+data["cat_slug"]+'/'+data["slug"]+'</td><td>'+data["title"]+'</td><td><div class="btn-group btn-group-sm" role="group" aria-label="Basic example"><button type="button" class="btn btn-secondary" onclick="get_request("/")">Edit</button><button type="button" class="btn btn-secondary" onclick="get_request("/")">Delete</button></div></td></tr>');
+    $("#table-posts").append(
+        '<tr id="post-'+data["id"]+'">\
+            <th scope="row">1</th>\
+            <td>/'+data["cat_slug"]+'/'+data["slug"]+'</td>\
+            <td>'+data["title"]+'</td>\
+            <td>\
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">\
+                    <button type="button" class="btn btn-secondary" onclick="get_request()">Edit</button>\
+                    <button type="button" class="btn btn-secondary" onclick="get_request(\'/home/delete/post-'+data["id"]+'\',\'#post-'+data["id"]+'\')">Delete</button>\
+                </div>\
+            </td>\
+        </tr>');
 }
 $('#close-fail').on('click', function(e){
     $('#fail').addClass('hide-alert');
