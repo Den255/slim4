@@ -12,6 +12,10 @@ function get_request(url){
                 $('#fail').removeClass('hide-alert');
                 $('#fail-text').html(data["msg"]);
             }
+            if(data["posts"]!=null){
+                $('#table-posts').empty();
+                data["posts"].forEach(update_posts);
+            }
         },
         error: function (response) {
             $('#fail').removeClass('hide-alert');
@@ -32,11 +36,12 @@ function post_request(url,modal,form){
                 $('#ok').removeClass('hide-alert');
                 $('#ok-text').html(data["msg"]);
                 if(modal == 'cat-modal'){
-                    $("#menu").append('<li class="nav-item"><a class="nav-link active" href="/home/cat/'+data["slug"]+'">'+data["name"]+'</a></li>');
+                    $("#menu").append('<button type="button" class="btn btn-outline-primary" onclick="get_request("/home/cat/'+data["slug"]+'")">'+data["name"]+'</button>');
+                    $("#cat").append('<option value="'+data["cat_id"]+'">'+data["name"]+'</option>');
+                    
                 }
                 if(modal == 'post-modal'){
-                    $("#table-posts").append('<tr><th scope="row">1</th><td></td><td></td><td><div class="btn-group btn-group-sm" role="group" aria-label="Basic example"><button type="button" class="btn btn-secondary" onclick="get_request("/")">Edit</button><button type="button" class="btn btn-secondary" onclick="get_request("/")">Delete</button></div></td></tr>');
-                    
+                    $("#table-posts").append('<tr><th scope="row">1</th><td>/'+data["cat_slug"]+'/'+data["slug"]+'</td><td>'+data["title"]+'</td><td><div class="btn-group btn-group-sm" role="group" aria-label="Basic example"><button type="button" class="btn btn-secondary" onclick="get_request("/")">Edit</button><button type="button" class="btn btn-secondary" onclick="get_request("/")">Delete</button></div></td></tr>');
                 }
             }else{
                 $('#fail').removeClass('hide-alert');
@@ -51,7 +56,9 @@ function post_request(url,modal,form){
     $('#'+modal).modal('hide')
 }
 
-
+function update_posts(data,index){
+    $("#table-posts").append('<tr><th scope="row">1</th><td>/'+data["cat_slug"]+'/'+data["slug"]+'</td><td>'+data["title"]+'</td><td><div class="btn-group btn-group-sm" role="group" aria-label="Basic example"><button type="button" class="btn btn-secondary" onclick="get_request("/")">Edit</button><button type="button" class="btn btn-secondary" onclick="get_request("/")">Delete</button></div></td></tr>');
+}
 $('#close-fail').on('click', function(e){
     $('#fail').addClass('hide-alert');
 });

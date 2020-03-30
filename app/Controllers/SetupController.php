@@ -74,7 +74,7 @@ class SetupController extends Controller
     }
     function disable_setup(Request $request, Response $response){
         $this->putenv("SETUP_MODE","false");
-        $payload = json_encode(['status' => 'OK'], JSON_PRETTY_PRINT);
+        $payload = json_encode(['status' => 'OK','msg'=>'Setup mode disabled'], JSON_PRETTY_PRINT);
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
