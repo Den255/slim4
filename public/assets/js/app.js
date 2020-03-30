@@ -26,7 +26,6 @@ function get_request(url){
 function post_request(url,modal,form){
     tinyMCE.triggerSave();
     var data =  $('#'+form).serializeArray();
-    console.log(data);
     $.ajax({
         url: url,
         type: 'post',
@@ -75,3 +74,8 @@ $(document).on('focusin', function(e) {
         e.stopImmediatePropagation();
     }
 });
+function sluggable(input_id,out_id){
+    text = $(input_id).val();
+    slug = getSlug(text);
+    $(out_id).val(slug);
+}
