@@ -28,8 +28,11 @@ $app->group('/', function (RouteCollectorProxy $group) {
     //Show
     $group->get('home/cat/{cat-slug}', \HomeController::class . ':show_posts');
     $group->get('home/posts', \HomeController::class . ':show_posts');
+    //Edit
+    $group->get('home/edit/cat-{id}', \HomeController::class . ':edit_cat');
+    $group->get('home/edit/post-{id}', \HomeController::class . ':edit_post');
     //Delete
-    $group->get('home/delete/post-{id}', \HomeController::class . ':del_post');
     $group->get('home/delete/cat-{id}', \HomeController::class . ':del_cat');
+    $group->get('home/delete/post-{id}', \HomeController::class . ':del_post');
 })->add(new AuthMiddleware($container));
 ?>

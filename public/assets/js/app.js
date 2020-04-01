@@ -1,5 +1,4 @@
-function get_request(url,element){
-    //console.log("ssss");
+function get_request(url,action,id){
     $.ajax({
         url: url,
         type: 'Get',
@@ -9,20 +8,24 @@ function get_request(url,element){
                 $('#ok-text').html(data["msg"]);
                 $('#btn-'+data["table-name"]).attr("disabled",true);
                 $('#btn-'+data["table-name"]).html(data["msg"]);
-                if(element!=null){
-                    $(element).remove();
+                if(action=='delete'){
+                    $(id).remove();
+                }
+                if(action=='show'){
+                    $('#table-posts').empty();
+                    data["posts"].forEach(update_posts);
+                }
+                if(action=='edit'){
+                    $('#myModal').on('show.bs.modal');
+                    //data["cat_id"];
+                    $('#cat-name').val(data["name"]);
+                    $('#cat-slug').val(data["slug"]);
                 }
             }else{
                 $('#fail').removeClass('hide-alert');
                 $('#fail-text').html(data["msg"]);
             }
-            if(data["posts"]!=null){
-                $('#table-posts').empty();
-                data["posts"].forEach(update_posts);
-            }
-            if(element!=null){
-                $(element).remove();
-            }
+
         },
         error: function (response) {
             $('#fail').removeClass('hide-alert');
@@ -42,7 +45,13 @@ function post_request(url,modal,form){
                 $('#ok').removeClass('hide-alert');
                 $('#ok-text').html(data["msg"]);
                 if(modal == 'cat-modal'){
-                    $("#menu").append('<button type="button" class="btn btn-outline-primary" onclick="get_request("/home/cat/'+data["slug"]+'")">'+data["name"]+'</button>');
+                    $("#menu").append('\
+                    <div class="btn-group" role="group" id="cat-'+data["cat_id"]+'">\
+                        <button type="button" class="btn btn-outline-primary" onclick="get_request("/home/cat/'+data["slug"]+'")","show">'+data["name"]+'</button>\
+                        <button type="button" style="width: 50px;" class="btn btn-outline-warning" onclick="get_request(\'/home/edit/cat-'+data["cat_id"]+'\',\'edit\',\'#cat-'+data["cat_id"]+'\')">E</button>\
+                        <button type="button" style="width: 50px;" class="btn btn-outline-danger" onclick="get_request(\'/home/delete/cat-'+data["cat_id"]+'\',\'delete\',\'#cat-'+data["cat_id"]+'\')">X</button>\
+                    </div>\
+                    ');
                     $("#cat").append('<option value="'+data["cat_id"]+'">'+data["name"]+'</option>');
                     
                 }
@@ -53,9 +62,9 @@ function post_request(url,modal,form){
                             <td>/'+data["cat_slug"]+'/'+data["slug"]+'</td>\
                             <td>'+data["title"]+'</td>\
                             <td>\
-                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">\
+                                <div class="btn-group btn-group-sm" role="group">\
                                     <button type="button" class="btn btn-secondary" onclick="get_request()">Edit</button>\
-                                    <button type="button" class="btn btn-secondary" onclick="get_request(\'/home/delete/post-'+data["post_id"]+'\',\'#post-'+data["post_id"]+'\')">Delete</button>\
+                                    <button type="button" class="btn btn-secondary" onclick="get_request(\'/home/delete/post-'+data["post_id"]+'\',\'delete\',\'#post-'+data["post_id"]+'\')">Delete</button>\
                                 </div>\
                             </td>\
                         </tr>');
@@ -80,9 +89,9 @@ function update_posts(data,index){
             <td>/'+data["cat_slug"]+'/'+data["slug"]+'</td>\
             <td>'+data["title"]+'</td>\
             <td>\
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">\
+                <div class="btn-group btn-group-sm" role="group">\
                     <button type="button" class="btn btn-secondary" onclick="get_request()">Edit</button>\
-                    <button type="button" class="btn btn-secondary" onclick="get_request(\'/home/delete/post-'+data["id"]+'\',\'#post-'+data["id"]+'\')">Delete</button>\
+                    <button type="button" class="btn btn-secondary" onclick="get_request(\'/home/delete/post-'+data["id"]+'\',\'delete\',\'#post-'+data["id"]+'\')">Delete</button>\
                 </div>\
             </td>\
         </tr>');

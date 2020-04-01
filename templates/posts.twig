@@ -13,7 +13,11 @@
                   <ul class="nav flex-column">
                     <div id="menu" class="btn-group-vertical">
                       {% for cat in cats %}
-                          <button type="button" class="btn btn-outline-primary" onclick="get_request('/home/cat/{{cat["slug"]}}')">{{cat["name"]}}</button>
+                      <div class="btn-group" role="group" id="cat-{{ cat["id"] }}">
+                          <button type="button" class="btn btn-outline-primary" onclick="get_request('/home/cat/{{cat["slug"]}}','show')">{{cat["name"]}}</button>
+                          <button type="button" data-toggle="modal" data-target="#cat-modal" style="width: 50px;" class="btn btn-outline-warning" onclick="get_request('/home/edit/cat-{{ cat["id"] }}','edit','#cat-{{cat["id"]}}')">E</button>
+                          <button type="button" style="width: 50px;" class="btn btn-outline-danger" onclick="get_request('/home/delete/cat-{{ cat["id"] }}','delete','#cat-{{ cat["id"] }}')">X</button>
+                      </div>
                       {%endfor%}
                     </div>
                   </ul>
@@ -38,8 +42,8 @@
                     <td>{{ post["title"] }}</td>
                     <td>
                       <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-secondary" onclick="get_request('/')">Edit</button>
-                        <button type="button" class="btn btn-secondary" onclick="get_request('/home/delete/post-{{ post["id"] }}','#post-{{ post["id"] }}')">Delete</button>
+                        <button type="button" class="btn btn-secondary" onclick="get_request('/','edit')">Edit</button>
+                        <button type="button" class="btn btn-secondary" onclick="get_request('/home/delete/post-{{ post["id"] }}','delete','#post-{{ post["id"] }}')">Delete</button>
                       </div>
                     </td>
                   </tr>

@@ -93,5 +93,19 @@ class HomeController extends Controller
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+    function del_cat(Request $request, Response $response, $args){
+        Category::find($args["id"])->delete();
+        $msg = "Category deleted!";
+        $payload = json_encode(['status' => 'OK','msg'=>$msg,], JSON_PRETTY_PRINT);
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+    function edit_cat(Request $request, Response $response, $args){
+        $cat = Category::find($args["id"])->first();
+        //var_dump($cat);
+        $payload = json_encode(['status' => 'OK','cat_id'=>$cat["id"],'slug'=>$cat["slug"],'name'=>$cat["name"],], JSON_PRETTY_PRINT);
+        $response->getBody()->write($payload);
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }
 ?>
