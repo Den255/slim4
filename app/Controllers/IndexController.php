@@ -18,18 +18,18 @@ class IndexController extends Controller
             'posts' => $posts,
         ]);
     }
-    public function show_cat(Request $request, Response $response, $args){
+    public function show_post(Request $request, Response $response, $args){
         $categories = Category::all();
-        foreach($categories as $cat){
-            if($cat["slug"]==$args["cat-slug"]){
-                $cat_id = $cat["id"];
-                break;
-            }
-        }
         if($args["cat-slug"]==NULL){
             $posts = Post::paginate(10);
             $template = 'post-list.twig';
         }elseif($args["post-slug"]==NULL){
+            foreach($categories as $cat){
+                if($cat["slug"]==$args["cat-slug"]){
+                    $cat_id = $cat["id"];
+                    break;
+                }
+            }
             $posts = Post::select()->where('cat_id',$cat_id)->paginate(10);
             $template = 'post-list.twig';
         }else{

@@ -36,7 +36,7 @@ $app->group('/', function (RouteCollectorProxy $group) {
     $group->get('home/delete/post-{id}', \HomeController::class . ':del_post');
 })->add(new AuthMiddleware($container));
 
-$app->get('/blog', \IndexController::class . ':show_cat');
-$app->get('/blog/{cat-slug}', \IndexController::class . ':show_cat');
-$app->get('/blog/{cat-slug}/{post-slug}', \IndexController::class . ':show_cat');
+$app->get('/blog', \IndexController::class . ':show_post');
+$app->get('/blog/{cat-slug}', \IndexController::class . ':show_post');
+$app->get('/blog/{cat-slug}/{post-slug}', \IndexController::class . ':show_post');
 ?>
