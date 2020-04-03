@@ -107,5 +107,11 @@ class HomeController extends Controller
         $response->getBody()->write($payload);
         return $response->withHeader('Content-Type', 'application/json');
     }
+    function update_cat(Request $request, Response $response, $args){
+        Category::find($args["id"])->update([
+            'name' => $body["name"],
+            'slug' => $body["slug"],
+        ]);
+    }
 }
 ?>

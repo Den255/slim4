@@ -34,10 +34,9 @@
             </div>
             <div class="col-md-4 col-sm-12">
                 <div id="r-sidebar">
-                    <li><a href="/">link</a></li>
-                    <li><a href="/">link</a></li>
-                    <li><a href="/">link</a></li>
-                    <li><a href="/">link</a></li>
+                    {%for cat in categories %}
+                        <li><a href="/blog/{{cat["slug"]}}">{{cat["name"]}}</a></li>
+                    {%endfor%}
                 </div>
             </div>
         </div>

@@ -16,10 +16,8 @@ function get_request(url,action,id){
                     data["posts"].forEach(update_posts);
                 }
                 if(action=='edit'){
-                    $('#myModal').on('show.bs.modal');
-                    //data["cat_id"];
-                    $('#cat-name').val(data["name"]);
-                    $('#cat-slug').val(data["slug"]);
+                    $('#edit-cat-modal').on('show.modal');
+                    $('#edit-cat-name').val(data["name"]);
                 }
             }else{
                 $('#fail').removeClass('hide-alert');
@@ -107,6 +105,7 @@ tinymce.init({
     height: 600,
     plugins : 'link'
 });
+//For tinymce plugin link in modal
 $(document).on('focusin', function(e) {
     if ($(e.target).closest(".tox-dialog").length) {
         e.stopImmediatePropagation();

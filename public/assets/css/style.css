@@ -44,11 +44,12 @@ h1{
 #center {
     display: block;
     width: 100%;
+    min-height: 600px;
 }
 #content{  
     background: white;
     box-shadow: 5px 5px 20px 0px grey;
-    min-height: 1000px;
+    /*min-height: 1000px;*/
 }
 #content-title{
     padding: 20px;
@@ -67,6 +68,19 @@ h1{
 #content img{
     padding: 15px;
     width: 100%;
+}
+#post-image{
+    vertical-align: top;
+    max-width: 350px;
+    display: inline-block;
+}
+#read-next{
+    margin-left: 15px;
+}
+#post-descriptions{
+    width: 60%;
+    display: inline-block;
+    margin-top: 10px;
 }
 #content-text{
     padding: 15px;
@@ -102,7 +116,7 @@ footer {
     background: #151515;
     border-top: grey 2px solid;
     width: 100%;
-    min-height: 100px;
+    min-height: 1000px;
     box-shadow: 5px 5px 20px 0px grey;
 }
 #alertbox{

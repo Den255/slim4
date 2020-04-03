@@ -1,0 +1,27 @@
+{% extends "app.twig" %}
+{% block content %}
+{% include "header.twig" %}
+<div id="center" class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+            <div  id="content">
+                <h1 id="content-title">{{posts["title"]}}</h1>
+                <div id="line"></div>
+                <img id="post-image" src="/assets/images/post-image.jpg">
+                <div id="content-text">
+                    {{posts["content"]|raw}}
+                </div>
+            <div id="content-footer"></div>
+            </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div id="r-sidebar">
+                    {%for cat in categories %}
+                        <li><a href="/blog/{{cat["slug"]}}">{{cat["name"]}}</a></li>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+{% include "footer.twig" %}
+{% endblock %}
