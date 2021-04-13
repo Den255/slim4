@@ -17,7 +17,7 @@ class SetupController extends Controller
     function main(Request $request, Response $response){
 
         if($this->check()){
-            return $this->view->render($response, 'setup.twig', [
+            return $this->view->render($response, 'admin/setup.twig', [
                 'result' => $result,
             ]);
         }else{
@@ -28,7 +28,7 @@ class SetupController extends Controller
     function show(Request $request, Response $response){
 
         if($this->check()){
-            return $this->view->render($response, 'add_user.twig', [
+            return $this->view->render($response, 'admin/add_user.twig', [
                 'result' => $result,
             ]);
         }else{
@@ -119,7 +119,7 @@ class SetupController extends Controller
                 "exist"=>$posts::exist()
             ],
         );
-        return $this->view->render($response, 'db-page.twig', [
+        return $this->view->render($response, 'admin/db-page.twig', [
             'result' => $result,
         ]);
     }

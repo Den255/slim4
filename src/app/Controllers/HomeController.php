@@ -12,7 +12,7 @@ use App\Models\Post;
 class HomeController extends Controller
 {
     public function home(Request $request, Response $response,$args){
-        return $this->view->render($response, 'home.twig', [
+        return $this->view->render($response, 'admin/home.twig', [
             'cats' => $cats,
             'posts' => $posts,
         ]);
@@ -24,7 +24,7 @@ class HomeController extends Controller
             if(Post::exist()){
                 $posts = Post::all();
             }
-            return $this->view->render($response, 'posts.twig', [
+            return $this->view->render($response, 'admin/posts.twig', [
                 'cats' => $cats,
                 'posts' => $posts,
             ]);

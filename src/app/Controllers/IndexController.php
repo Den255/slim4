@@ -13,7 +13,7 @@ class IndexController extends Controller
         $categories = Category::all();
         $posts = Post::paginate(10);
         $result = "Hello!";
-        return $this->view->render($response, 'index.twig', [
+        return $this->view->render($response, 'blog/index.twig', [
             'categories' => $categories,
             'posts' => $posts,
         ]);
@@ -22,7 +22,7 @@ class IndexController extends Controller
         $categories = Category::all();
         if($args["cat-slug"]==NULL){
             $posts = Post::paginate(10);
-            $template = 'post-list.twig';
+            $template = 'blog/post-list.twig';
         }elseif($args["post-slug"]==NULL){
             foreach($categories as $cat){
                 if($cat["slug"]==$args["cat-slug"]){
@@ -31,10 +31,10 @@ class IndexController extends Controller
                 }
             }
             $posts = Post::select()->where('cat_id',$cat_id)->paginate(10);
-            $template = 'post-list.twig';
+            $template = 'blog/post-list.twig';
         }else{
             $posts = Post::select()->where('slug',$args["post-slug"])->first();
-            $template = 'single-post.twig';
+            $template = 'blog/single-post.twig';
         }
         return $this->view->render($response, $template, [
             'categories' => $categories,

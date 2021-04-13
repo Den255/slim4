@@ -9,7 +9,7 @@ use App\Models\User;
 class AuthController extends Controller
 {
     public function show(Request $request, Response $response){
-        return $this->view->render($response, 'auth.twig', [
+        return $this->view->render($response, 'admin/auth.twig', [
             'data' => $data
         ]);    
     }
