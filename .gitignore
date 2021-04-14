@@ -1,5 +1,5 @@
 .env
 src/.env
 src/vendor/*
-src/public/assets/*
+src/public/assets/tinymce*
 tmp/*

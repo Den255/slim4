@@ -1,0 +1,132 @@
+body{
+    background:#84c6ff!important;
+    margin: 0px;
+}
+h1{
+    margin: 0;
+}
+.container{
+    max-width: 1800px!important;
+}
+#header {
+    display: block;
+    height: 130px;
+    background: white;
+    box-shadow: 5px 5px 20px 0px grey;
+    margin-bottom: 15px;
+}
+#logo{
+    display: inline-block;
+    width: 50%;
+    font: 700 25px/27px "PT Sans",sans;
+    padding: 50px;
+}
+#top-sidebar{
+    display: inline-block;
+}
+#top-sidebar ul li{
+    display: inline;
+    list-style: none;
+    padding: 12px;
+}
+#top-sidebar ul li a{
+    padding: 12px;
+    color: #0089ff;
+    font-size: 20px;
+}
+#top-sidebar ul li:hover{
+    /*background: rgb(73, 73, 73); */
+    padding: 12px;
+    border-bottom: 3px #6c8092 ;
+}
+
+/**/
+#center {
+    display: block;
+    width: 100%;
+    min-height: 600px;
+}
+#content{  
+    background: white;
+    box-shadow: 5px 5px 20px 0px grey;
+    /*min-height: 1000px;*/
+}
+#content-title{
+    padding: 20px;
+    font: 700 13px/15px "PT Sans",sans;
+    text-transform: uppercase;
+}
+#content-footer{
+    padding: 20px;
+    font: 700 13px/15px "PT Sans",sans;
+}
+#line{
+    width: 90%;
+    height: 4px;
+    background: #84c6ff;
+}
+#content img{
+    padding: 15px;
+    width: 100%;
+}
+#post-image{
+    vertical-align: top;
+    max-width: 350px;
+    display: inline-block;
+}
+#read-next{
+    margin-left: 15px;
+}
+#post-descriptions{
+    width: 60%;
+    display: inline-block;
+    margin-top: 10px;
+}
+#content-text{
+    padding: 15px;
+    margin-top: 0px;
+}
+/**/
+#r-sidebar{
+    margin-bottom: 15px;
+    background: white;
+    box-shadow: 5px 5px 20px 0px grey;
+}
+#r-sidebar li {
+    display: block;
+    list-style: none;
+    height: 40px;
+}
+#r-sidebar li a {    
+    display: inline-block;
+    width: 100%;
+    color: #0089ff;
+    padding: 15px;
+    font-size: 20px;
+    text-decoration: none;
+    background: white;
+}
+
+#r-sidebar li a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    display: block;
+    background: #151515;
+    border-top: grey 2px solid;
+    width: 100%;
+    min-height: 1000px;
+    box-shadow: 5px 5px 20px 0px grey;
+}
+#alertbox{
+    position: absolute;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    width: 20%;
+}
+.hide-alert{
+    display: none;
+}
