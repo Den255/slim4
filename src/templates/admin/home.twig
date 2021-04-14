@@ -1,32 +1,12 @@
-{% extends "app.twig" %}
+{% extends "admin.twig" %}
 {% block content %}
 <div class="container">
-  {% include 'admin/navbar.twig' %}
-  <div class="row">
-    <div class="col-sm">
-        <div id="content">
-          <h1 id="content-title">Home page</h1>
-          <div id="line"></div>
-            <div class="row">
-              <div class="col-2">
-                <div class="nav flex-column" id="v-pills-tab" aria-orientation="vertical">
-                  <ul class="nav flex-column">
-                    <div id="menu" class="btn-group-vertical">
-                      {% for cat in cats %}
-                          <button type="button" class="btn btn-outline-primary" onclick="get_request('/home/cat/{{cat["slug"]}}')">{{cat["name"]}}</button>
-                      {%endfor%}
-                    </div>
-                  </ul>
-                  <button type="button" class="btn btn-outline-success" data-toggle="modal">Button</button>
-                </div>
-              </div>
-              <div class="col-9">
-                
-              </div>
-            </div>
-          </div>
-          <div id="content-footer"></div>
-        </div>
-    </div>
+  <div id="left-navbar">
+    <a class="ln-item" href="#">A</a>
+    <a class="ln-item" href="#">B</a>
+    <a class="ln-item" href="#">C</a>
+    <a class="ln-item" href="#">D</a>
+    <a class="ln-item" href="#">E</a>
   </div>
+</div>
 {% endblock %}

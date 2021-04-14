@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My list</title>
+        <meta name="Description" content="Put your description here">
+
+        <link rel="shortcut icon" href="/assets/admin/images/favicon.png"/> 
+        <link rel="stylesheet" href="/assets/admin/css/style.css">
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
+        <!-- 
+        
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+        -->
+    </head>
+	<body>
+    <div id="alertbox">
+        <div id="ok" class="alert alert-success alert-dismissible hide-alert" role="alert">
+            <p id="ok-text" style="margin:0;">All fine!</p>
+            <button id="close-ok" type="button" class="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="fail" class="alert alert-danger alert-dismissible hide-alert" role="alert">
+            <p id="fail-text" style="margin:0;">Ooopss ...</p>
+            <button id="close-fail" type="button" class="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+		{% block content %}
+		
+		{% endblock %}
+    </body>
+    <!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script src="/assets/js/speakingurl.min.js"></script>
+    <script src="/assets/js/app.js"></script>
+    -->
+</html>
