@@ -2,9 +2,9 @@ ports:
   - port: 8000
     onOpen: open-preview
 
-tasks:
-  - init: composer update
-    command: php -S 0.0.0.0:8000 -t public/
+# tasks:
+#   - init: composer update
+#     command: php -S 0.0.0.0:8000 -t public/
 
 vscode:
   extensions:
