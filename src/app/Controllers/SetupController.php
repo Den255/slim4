@@ -46,19 +46,19 @@ class SetupController extends Controller
             foreach($content as &$line){
                 $chg_line = false;
                 if(!(stristr($line, "DB_HOST") === FALSE)){
-                    $line = "\nDB_HOST = '".$body["dbhost"]."'";
+                    $line = "\nDB_HOST=".$body["dbhost"];
                     $chg_line = true;
                 }
                 if(!(stristr($line, "DB_NAME") === FALSE)){
-                    $line = "\nDB_NAME = '".$body["dbname"]."'";
+                    $line = "\nDB_NAME=".$body["dbname"];
                     $chg_line = true;
                 }
                 if(!(stristr($line, "DB_USER") === FALSE)){
-                    $line = "\nDB_USER = '".$body["dbuser"]."'";
+                    $line = "\nDB_USER=".$body["dbuser"];
                     $chg_line = true;
                 }
                 if(!(stristr($line, "DB_PASSWORD") === FALSE)){
-                    $line = "\nDB_PASSWORD = '".$body["dbpassword"]."'\n";
+                    $line = "\nDB_PASSWORD=".$body["dbpassword"];
                     $chg_line = true;
                 }
                 if(!$chg_line){

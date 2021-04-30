@@ -16,11 +16,12 @@ services:
   php-fpm:
     build:
       context: ./
-      dockerfile: Dockerfile.php
+      dockerfile: docker/php-fpm/Dockerfile
     volumes:
      - ./src/:/var/www
     networks:
       - app-network
+    container_name: php-fpm
   nginx:
     image: nginx:alpine
     container_name: nginx-slim4
@@ -34,7 +35,7 @@ services:
   phpmyadmin: 
     image: phpmyadmin:latest
     ports:
-      - 127.0.0.1:8080:80
+      - 127.0.0.1:8088:80
     networks:
       - app-network
 networks:
