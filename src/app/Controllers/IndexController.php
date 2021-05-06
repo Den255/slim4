@@ -10,8 +10,8 @@ use App\Models\Category;
 class IndexController extends Controller
 {
     public function main(Request $request, Response $response){
-        $categories = Category::all();
-        $posts = Post::paginate(10);
+        $categories = ''; // Category::all();
+        $posts = ''; //Post::paginate(10);
         $result = "Hello!";
         return $this->view->render($response, 'blog/index.twig', [
             'categories' => $categories,

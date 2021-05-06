@@ -6,9 +6,8 @@
       "slim/psr7": "^0.6.0",
       "php-di/php-di": "^6.0",
       "slim/twig-view": "^2.5",
-      "illuminate/database": "6.20.14",
-      "vlucas/phpdotenv": "^4.1",
-      "illuminate/pagination": "~5.0"
+      "illuminate/database": "6.20.26",
+      "vlucas/phpdotenv": "^4.1"
   },
   "autoload": {
     "psr-4": {
