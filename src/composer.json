@@ -3,7 +3,7 @@
   "description":"Simple slim app",  
   "require": {
       "slim/slim": "^4.0",
-      "slim/psr7": "^0.6.0",
+      "slim/psr7": "^1.4.1",
       "php-di/php-di": "^6.0",
       "slim/twig-view": "^2.5",
       "illuminate/database": "6.20.26",
